@@ -1,0 +1,46 @@
+.App {
+  display: flex;
+
+  &-Sidebar {
+    width: 35%;
+    padding-right: 3vw;
+    padding-left: 3vw;
+    padding-bottom: 30px;
+  }
+
+  &-Content {
+    width: 70%;
+    min-height: 100vh;
+    border-left: 1px solid lightgray;
+  }
+}
+
+@media (max-width: 1190px) {
+  .App {
+    &-Sidebar {
+      width: 45%;
+    }
+
+    &-Content {
+      width: 55%;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .App {
+    display: flex;
+    flex-direction: column;
+
+    &-Sidebar {
+      width: 100%;
+      border-right: none;
+      padding: 0 5vw;
+    }
+
+    &-Content {
+      width: 100%;
+      border-left: none;
+    }
+  }
+}

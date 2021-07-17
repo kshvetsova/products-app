@@ -1,0 +1,132 @@
+@import "../styles/main";
+
+.NewProduct {
+  &-Button {
+    display: flex;
+    width: 100%;
+    max-width: 350px;
+    margin: 20px auto;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 20px;
+    @include fontSize(21px, 700);
+    background-color: $activeColor;
+    color: $textColor;
+  }
+
+  &-Form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 30px;
+    background-color: #f2f2f2;
+  }
+}
+
+.hidden_form {
+  display: none;
+}
+
+.Form-Item {
+  margin-bottom: 20px;
+}
+
+.label {
+  @include fontSize(17px, 600);
+  color: $textColor;
+}
+
+.Form-Item:nth-child(1),
+.Form-Item:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Form-Item:nth-child(5) {
+  margin-bottom: 0;
+}
+
+.input {
+  width: 75%;
+  padding: 5px;
+  font-family: inherit;
+  @include fontSize(15px, 400);
+  color: $textColor;
+  outline: none;
+  border: 1px solid $activeColor;
+  border-radius: 3px;
+
+  &::placeholder {
+    color: #d0d0d0;
+    font-family: inherit;
+  }
+
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  &-container:nth-child(4) {
+    display: flex;
+    align-self: flex-start;
+  }
+}
+
+.error {
+  align-self: flex-end;
+  padding-bottom: 5px;
+  color: #f00;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.invalid {
+  border: 1px solid #f00;
+}
+
+.description {
+  resize: none;
+  padding: 5px;
+  width: 100%;
+}
+
+.button-image {
+  margin-left: 10px;
+  padding: 0 5px;
+  border-radius: 5px;
+  border: 1px solid $activeColor;
+  background-color: $backgroundColor;
+  @include fontSize(16px, 700);
+  color: $textColor;
+}
+
+.button_checked {
+  background-color: $textColor;
+  color: $activeColor;
+  border-color: $textColor;
+}
+
+.NewProduct-Button:disabled {
+  color: $textColor;
+  border: 1px solid $textColor;
+  background-color: #d0d0d0;
+}
+
+@media (max-width: $breakPointMobile) {
+  .Form {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 30px;
+  }
+
+  .NewProduct {
+    &-Button {
+      max-width: 350px;
+      margin: 20px auto;
+    }
+  }
+}
