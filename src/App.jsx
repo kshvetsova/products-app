@@ -3,13 +3,14 @@ import './App.scss';
 
 import { NewProduct } from './components/NewProduct';
 import { Options } from './components/Options';
-import { Products } from './components/Products/Products';
+import { Products } from './components/Products';
+import { Scroll } from './components/Scroll';
 
 import { ProductsProvider } from './ProductsProvider';
 
 export const App = () => (
   <ProductsProvider>
-    <div className="App">
+    <div className="App" id="product">
       <div className="App-Sidebar">
         <Options />
         <NewProduct />
@@ -17,6 +18,7 @@ export const App = () => (
       <div className="App-Content">
         <Products />
       </div>
+      <Scroll />
     </div>
   </ProductsProvider>
 );

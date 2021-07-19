@@ -9,27 +9,31 @@
   &-TitlePrice,
   &-TitleCurrency,
   &-TitleSorting {
-    margin-bottom: 15px;
-    margin-top: 30px;
+    margin-bottom: $bigGap / 2;
+    margin-top: $bigGap;
     @include fontSize(21px, 700);
     color: $textColor;
   }
 }
 
 .input-price {
-  margin-top: 5px;
-  padding: 5px;
+  margin-top: $smallGap / 2;
+  padding: $smallGap / 2;
   width: 80px;
   @include fontSize(16px, 600);
   color: $titleColor;
-  &:focus {
-    outline-color: $activeColor;
+  border: 1px solid $textColor;
+  border-radius: 3px;
+  outline-color: $activeColor;
+
+  &::placeholder {
+    color: $buttonColor;
   }
 }
 
 .input-to,
 .input-from {
-  @include fontSize(18px, 700);
+  @include fontSize(19px, 700);
   color: #7c7c7c;
 }
 
@@ -50,6 +54,11 @@
 .option {
   @include fontSize(16px, 400);
   color: $titleColor;
+  cursor: pointer;
+
+  &_active {
+    color: $activeColor;
+  }
 }
 
 .radio {
@@ -58,10 +67,10 @@
   width: 16px;
   height: 16px;
   border: 2px solid $activeColor;
-  margin-right: 5px;
-  background-color: white;
+  margin-right: $smallGap / 2;
+  background-color: $backgroundColor;
   position: relative;
-  top: 2px;
+  top: 1px;
   outline: none;
   cursor: pointer;
 }
@@ -72,17 +81,19 @@
 }
 
 :disabled {
-  color: #fff;
+  color: $backgroundColor;
 }
 
 .input-radio {
-  margin-bottom: 10px;
+  margin-bottom: $smallGap;
+  display: flex;
+  align-items: center;
 }
 
 .button {
-  padding: 10px 20px;
+  padding: $smallGap $middleGap;
   @include fontSize(16px, 700);
-  background-color: #d0d0d0;
+  background-color: $buttonColor;
   color: $textColor;
 
   &-usd {

@@ -5,10 +5,11 @@
     display: flex;
     width: 100%;
     max-width: 350px;
-    margin: 20px auto;
+    margin: 0 auto;
+    margin-top: $middleGap;
     justify-content: center;
-    padding: 10px;
-    border-radius: 20px;
+    padding: $smallGap;
+    border-radius: $middleGap;
     @include fontSize(21px, 700);
     background-color: $activeColor;
     color: $textColor;
@@ -17,11 +18,12 @@
   &-Form {
     display: flex;
     flex-direction: column;
-    border: 1px solid lightgray;
+    border: 1px solid $borderColor;
+    box-shadow: 0 4px 4px 0 $borderColor;
     border-radius: 5px;
-    padding: 20px;
-    margin-top: 30px;
-    background-color: #f2f2f2;
+    padding: $middleGap;
+    margin-top: $bigGap;
+    background-color: $formColor;
   }
 }
 
@@ -30,10 +32,7 @@
 }
 
 .Form-Item {
-  margin-bottom: 20px;
-}
-
-.label {
+  margin-bottom: $middleGap;
   @include fontSize(17px, 600);
   color: $textColor;
 }
@@ -51,16 +50,20 @@
 
 .input {
   width: 75%;
-  padding: 5px;
+  padding: $smallGap / 2;
   font-family: inherit;
   @include fontSize(15px, 400);
   color: $textColor;
   outline: none;
-  border: 1px solid $activeColor;
+  border: 1px solid $titleColor;
   border-radius: 3px;
+  
+  &_valid {
+    color: $activeColor;
+  }
 
   &::placeholder {
-    color: #d0d0d0;
+    color: $buttonColor;
     font-family: inherit;
   }
 
@@ -78,14 +81,18 @@
 
 .error {
   align-self: flex-end;
-  padding-bottom: 5px;
-  color: #f00;
+  padding-bottom: $smallGap / 2;
+  color: $errorColor;
   font-style: italic;
   font-size: 12px;
 }
 
 .invalid {
-  border: 1px solid #f00;
+  border: 1px solid $errorColor;
+}
+
+.valid {
+  border: 1px solid $activeColor;
 }
 
 .description {
@@ -96,12 +103,13 @@
 
 .button-image {
   margin-left: 10px;
-  padding: 0 5px;
+  padding: 0 $smallGap / 2;
   border-radius: 5px;
-  border: 1px solid $activeColor;
+  border: 1px solid $textColor;
   background-color: $backgroundColor;
   @include fontSize(16px, 700);
   color: $textColor;
+  line-height: 18px;
 }
 
 .button_checked {
@@ -113,20 +121,19 @@
 .NewProduct-Button:disabled {
   color: $textColor;
   border: 1px solid $textColor;
-  background-color: #d0d0d0;
+  background-color: $buttonColor;
 }
 
 @media (max-width: $breakPointMobile) {
   .Form {
     max-width: 400px;
     margin: auto;
-    margin-top: 30px;
+    margin-top: $bigGap;
   }
 
   .NewProduct {
     &-Button {
       max-width: 350px;
-      margin: 20px auto;
     }
   }
 }

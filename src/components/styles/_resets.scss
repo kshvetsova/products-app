@@ -11,13 +11,11 @@ body {
 
 div,
 p,
+a,
 span,
 h1,
 h2,
 h3,
-ul,
-li,
-a,
 img,
 input,
 button {
@@ -29,17 +27,13 @@ button {
   box-sizing: border-box;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+input,
+button {
+  background-color: #fff;
 }
 
 button {
   border: none;
   outline: none;
   cursor: pointer;
-}
-
-ul {
-  list-style: none;
 }

@@ -22,7 +22,7 @@ export const Options = () => {
       <div className="Options-Price">
         <h2 className="Options-TitlePrice">Цена</h2>
         <div className="Options-InputsPrice">
-          <label className={classNames('input-from', {
+          <div className={classNames('input-from', {
             input_active: valueInputFrom,
           })}
           >
@@ -34,14 +34,15 @@ export const Options = () => {
               name="от"
               min="10"
               max="100"
+              placeholder="10"
               value={valueInputFrom}
               onChange={(e) => {
                 setValueInputFrom(e.target.value);
                 applyQueryFrom(e.target.value);
               }}
             />
-          </label>
-          <label className={classNames('input-to', {
+          </div>
+          <div className={classNames('input-to', {
             input_active: valueInputTo,
           })}
           >
@@ -53,13 +54,14 @@ export const Options = () => {
               name="до"
               min="100"
               max="50000"
+              placeholder="50000"
               value={valueInputTo}
               onChange={(e) => {
                 setValueInputTo(e.target.value);
                 applyQueryTo(e.target.value);
               }}
             />
-          </label>
+          </div>
         </div>
       </div>
 
@@ -99,7 +101,12 @@ export const Options = () => {
               checked={valueRadio === 'asc'}
               onChange={e => setValueRadio(e.target.value)}
             />
-            <span className="option">по возростанию цены</span>
+            <p className={classNames('option', {
+              option_active: valueRadio === 'asc',
+            })}
+            >
+              по возростанию цены
+            </p>
           </label>
           <label className="input-desc input-radio">
             <input
@@ -110,7 +117,12 @@ export const Options = () => {
               checked={valueRadio === 'desc'}
               onChange={e => setValueRadio(e.target.value)}
             />
-            <span className="option">по убыванию цены</span>
+            <p className={classNames('option', {
+              option_active: valueRadio === 'desc',
+            })}
+            >
+              по убыванию цены
+            </p>
           </label>
 
           <label className="input-alphabet input-radio">
@@ -122,7 +134,12 @@ export const Options = () => {
               checked={valueRadio === 'alphabet'}
               onChange={e => setValueRadio(e.target.value)}
             />
-            <span className="option">по алфавиту</span>
+            <p className={classNames('option', {
+              option_active: valueRadio === 'alphabet',
+            })}
+            >
+              по алфавиту
+            </p>
           </label>
         </div>
       </div>

@@ -38,7 +38,7 @@ export const NewProduct = () => {
         + item.slice(1)} must contain from 5 to 40 characters!`);
     }
 
-    if ((value.length > 150 || value.length < 30)
+    if ((value.length < 30 || value.length > 150)
       && item === 'description' && value) {
       validErrors[item].push(`${item[0].toUpperCase()
         + item.slice(1)} must contain from 20 to 150 characters!`);
@@ -48,7 +48,7 @@ export const NewProduct = () => {
       ...errors,
       ...validErrors,
     });
-  }, [errors]);
+  }, [errors, productData]);
 
   const handleChange = useCallback((e) => {
     const { value, name: item } = e.target;
@@ -60,12 +60,14 @@ export const NewProduct = () => {
     });
 
     validate(value, item);
-  }, [productData]);
+    hasErrors();
+  }, [productData, errors]);
 
   const handleOnBlur = useCallback((e) => {
     const { value, name: item } = e.target;
 
     validate(value, item);
+    hasErrors();
   }, [validate]);
 
   const hasErrors = useCallback(() => {
@@ -74,9 +76,7 @@ export const NewProduct = () => {
     if ((Object.values(errors).some(arr => arr.length > 0))
       || (Object.values(productData).some(arr => arr === ''))) {
       valid = true;
-    }
-
-    if (Object.values(productData).every(arr => arr !== '')) {
+    } else if (Object.values(productData).every(arr => arr !== '')) {
       valid = false;
     }
 
@@ -115,12 +115,18 @@ export const NewProduct = () => {
         <form className="NewProduct-Form Form" onSubmit={addProduct}>
           <div className="input-container">
             <span className="error">{errors.name}</span>
-            <label className="Form-Item label">
-              Имя
+            <div className="Form-Item">
+              <p className={classNames({
+                input_valid: !errors.name[0] && name,
+              })}
+              >
+                Имя
+              </p>
               <input
                 type="text"
                 className={classNames('input', {
                   invalid: errors.name[0],
+                  valid: !errors.name[0] && name,
                 })}
                 name="name"
                 placeholder="Name"
@@ -128,16 +134,22 @@ export const NewProduct = () => {
                 onChange={handleChange}
                 onBlur={handleOnBlur}
               />
-            </label>
+            </div>
           </div>
           <div className="input-container">
             <span className="error">{errors.price}</span>
-            <label className="Form-Item label">
-              Цена
+            <div className="Form-Item">
+              <p className={classNames({
+                input_valid: !errors.price[0] && price,
+              })}
+              >
+                Цена
+              </p>
               <input
                 type="number"
                 className={classNames('input', {
                   invalid: errors.price[0],
+                  valid: !errors.price[0] && price,
                 })}
                 name="price"
                 placeholder="Price"
@@ -147,7 +159,7 @@ export const NewProduct = () => {
                 onChange={handleChange}
                 onBlur={handleOnBlur}
               />
-            </label>
+            </div>
           </div>
 
           <div className="input-container">
@@ -155,6 +167,7 @@ export const NewProduct = () => {
             <textarea
               className={classNames('description Form-Item input', {
                 invalid: errors.description[0],
+                valid: !errors.description[0] && description,
               })}
               placeholder="Description"
               rows="5"
@@ -166,8 +179,13 @@ export const NewProduct = () => {
           </div>
 
           <div className="input-container">
-            <div className="Form-Item label">
-              Изображение
+            <div className="Form-Item">
+              <p className={classNames({
+                input_valid: image,
+              })}
+              >
+                Изображение
+              </p>
               <button
                 className={classNames('button-image', {
                   button_checked: image,

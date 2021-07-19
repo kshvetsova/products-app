@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import classNames from 'classnames';
 import { ProductsContext } from '../../ProductsProvider';
 import { changeCurrency } from '../../api/exchange_rate';
 
@@ -13,10 +12,8 @@ export const Products = () => {
       {products.map(product => (
         <div key={product.id} className="Product">
           <div
-            className={classNames('photo', {
-              [`photo_${product.id + 1}`]: product.image !== 'product.jpg',
-              new_photo: product.image === 'product.jpg',
-            })}
+            className={`Product-Photo
+            Product-Photo_img_${product.image.slice(0, -4)}`}
           >
             {}
           </div>
@@ -32,7 +29,9 @@ export const Products = () => {
               </span>
             </p>
             <p className="Product-Description">
-              {product.description.slice(0, 150)}
+              {product.description.length > 150
+                ? `${product.description.slice(0, 150)}...`
+                : product.description}
             </p>
           </div>
         </div>
