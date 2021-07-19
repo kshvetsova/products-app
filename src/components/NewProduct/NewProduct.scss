@@ -115,8 +115,9 @@
   background-color: $backgroundColor;
   @include fontSize(16px, 700);
   color: $textColor;
-  text-align: center;
-  line-height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .button_checked {
