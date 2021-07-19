@@ -108,13 +108,14 @@
 
 .button-image {
   margin-left: 10px;
-  padding: 0 5px;
+  width: 20px;
+  height: 20px;
   border-radius: 5px;
   border: 1px solid $textColor;
   background-color: $backgroundColor;
   @include fontSize(16px, 700);
   color: $textColor;
-  align-self: center;
+  text-align: center;
 }
 
 .button_checked {
