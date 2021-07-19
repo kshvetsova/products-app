@@ -109,7 +109,8 @@
   background-color: $backgroundColor;
   @include fontSize(16px, 700);
   color: $textColor;
-  line-height: 18px;
+  display: flex;
+  align-items: center;
 }
 
 .button_checked {
