@@ -178,29 +178,27 @@ export const NewProduct = () => {
             />
           </div>
 
-          <div className="input-container">
-            <div className="Form-Item">
-              <p className={classNames({
-                input_valid: image,
+          <div className="Form-Item">
+            <p className={classNames({
+              input_valid: image,
+            })}
+            >
+              Изображение
+            </p>
+            <button
+              className={classNames('button-image', {
+                button_checked: image,
               })}
-              >
-                Изображение
-              </p>
-              <button
-                className={classNames('button-image', {
-                  button_checked: image,
-                })}
-                type="button"
-                onClick={() => {
-                  setProductData({
-                    ...productData,
-                    image: 'product.jpg',
-                  });
-                }}
-              >
-                +
-              </button>
-            </div>
+              type="button"
+              onClick={() => {
+                setProductData({
+                  ...productData,
+                  image: 'product.jpg',
+                });
+              }}
+            >
+              +
+            </button>
           </div>
           <button
             className="Form-Item NewProduct-Button"
