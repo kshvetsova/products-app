@@ -115,9 +115,13 @@
   background-color: $backgroundColor;
   @include fontSize(16px, 700);
   color: $textColor;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+}
+
+.button-plus {
+  position: absolute;
+  top: 5%;
+  left: 24%;
 }
 
 .button_checked {
