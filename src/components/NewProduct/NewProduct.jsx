@@ -197,7 +197,7 @@ export const NewProduct = () => {
                 });
               }}
             >
-             <span>+</span>
+              &nbsp;
             </button>
           </div>
           <button
