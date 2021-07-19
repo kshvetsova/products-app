@@ -197,7 +197,7 @@ export const NewProduct = () => {
                 });
               }}
             >
-              <span className="button-plus">+</span>
+             <span>+</span>
             </button>
           </div>
           <button
