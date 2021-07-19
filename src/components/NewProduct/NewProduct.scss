@@ -116,6 +116,7 @@
   @include fontSize(16px, 700);
   color: $textColor;
   text-align: center;
+  line-height: 20px;
 }
 
 .button_checked {
