@@ -198,7 +198,6 @@ export const NewProduct = () => {
                 });
               }}
             >
-              {/* &#10010; */}
               <b>&#43;</b>
             </button>
           </div>

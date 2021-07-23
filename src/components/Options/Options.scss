@@ -26,8 +26,7 @@
   border-radius: 3px;
 
   &:focus {
-    outline: auto;
-    outline-color: $activeColor;
+    border-color: $activeColor;
   }
 
   &::placeholder {

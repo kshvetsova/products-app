@@ -107,9 +107,13 @@
 }
 
 .button-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-left: 10px;
-  padding: 0 4px;
-  border-radius: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
   border: 1px solid $textColor;
   background-color: $backgroundColor;
   color: $textColor;
