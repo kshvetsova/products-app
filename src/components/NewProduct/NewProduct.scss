@@ -108,19 +108,11 @@
 
 .button-image {
   margin-left: 10px;
-  width: 20px;
-  height: 20px;
+  padding: 0 4px;
   border-radius: 5px;
   border: 1px solid $textColor;
   background-color: $backgroundColor;
-  @include fontSize(16px, 700);
-
-  &:before {
-    content: "+";
-    display: block;
-    line-height: 18px;
-    margin: auto;
-  }
+  color: $textColor;
 }
 
 .button_checked {

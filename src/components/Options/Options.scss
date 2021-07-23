@@ -21,11 +21,14 @@
   padding: $smallGap / 2;
   width: 80px;
   @include fontSize(16px, 600);
-  -webkit-appearance: none;
   color: $titleColor;
   border: 1px solid $textColor;
   border-radius: 3px;
-  outline-color: $activeColor;
+
+  &:focus {
+    outline: auto;
+    outline-color: $activeColor;
+  }
 
   &::placeholder {
     color: $buttonColor;

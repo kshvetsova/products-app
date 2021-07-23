@@ -178,6 +178,7 @@ export const NewProduct = () => {
             />
           </div>
 
+          {/* <div className="input-container"> */}
           <div className="Form-Item">
             <p className={classNames({
               input_valid: image,
@@ -197,7 +198,8 @@ export const NewProduct = () => {
                 });
               }}
             >
-              &nbsp;
+              {/* &#10010; */}
+              <b>&#43;</b>
             </button>
           </div>
           <button

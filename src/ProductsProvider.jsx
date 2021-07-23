@@ -24,6 +24,8 @@ export const ProductsContext = React.createContext({
   applyQueryTo: () => {},
   valueRadio: '',
   setValueRadio: () => {},
+  errorList: '',
+  setErrorList: () => {},
 });
 
 export const ProductsProvider = ({ children }) => {
@@ -40,6 +42,7 @@ export const ProductsProvider = ({ children }) => {
   const [queryTo, setQueryTo] = useState('');
   const applyQueryTo = useCallback(debounce(setQueryTo, 1000), []);
   const [valueRadio, setValueRadio] = useState();
+  const [errorList, setErrorList] = useState(false);
 
   useEffect(() => {
     getExchangeRate().then(setExchangeRate);
@@ -47,42 +50,71 @@ export const ProductsProvider = ({ children }) => {
 
   const filteredProducts = useMemo(() => {
     if (!queryFrom && !queryTo) {
+      setErrorList(false);
+
       return productsList;
     }
 
-    if (currency === 'uah' && queryFrom && !queryTo) {
-      return productsList.filter(product => +product.price >= +queryFrom);
+    if (queryFrom && !queryTo) {
+      let result;
+
+      if (currency === 'uah') {
+        result = productsList.filter(product => (
+          +product.price >= +queryFrom));
+      }
+
+      if (currency === 'usd') {
+        result = productsList.filter(product => (
+          changeCurrency(exchangeRate, product.price) >= +queryFrom));
+      }
+
+      return result.length === 0 ? (setErrorList(true), productsList) : (
+        setErrorList(false),
+        result
+      );
     }
 
-    if (currency === 'usd' && queryFrom && !queryTo) {
-      return productsList.filter(product => (
-        changeCurrency(exchangeRate, product.price) >= +queryFrom));
+    if (queryTo && !queryFrom) {
+      let result;
+
+      if (currency === 'uah') {
+        result = productsList.filter(product => (
+          (+product.price) <= +queryTo));
+      }
+
+      if (currency === 'usd') {
+        result = productsList.filter(product => (
+          changeCurrency(exchangeRate, product.price) <= +queryTo));
+      }
+
+      return result.length === 0 ? (setErrorList(true), productsList) : (
+        setErrorList(false),
+        result
+      );
     }
 
-    if (currency === 'uah' && queryTo && !queryFrom) {
-      return productsList.filter(product => +product.price <= +queryTo);
-    }
+    if (queryFrom && queryTo) {
+      let result;
 
-    if (currency === 'usd' && queryTo && !queryFrom) {
-      return productsList.filter(product => (
-        changeCurrency(exchangeRate, product.price) <= +queryTo));
-    }
-
-    if (currency === 'uah' && queryFrom && queryTo) {
-      return productsList
-        .filter(product => (
+      if (currency === 'uah') {
+        result = productsList.filter(product => (
           +product.price <= +queryTo && +product.price >= +queryFrom));
-    }
+      }
 
-    if (currency === 'usd' && queryFrom && queryTo) {
-      return productsList
-        .filter(product => (
+      if (currency === 'usd') {
+        result = productsList.filter(product => (
           changeCurrency(exchangeRate, product.price) >= +queryFrom
-        && changeCurrency(exchangeRate, product.price) <= +queryTo));
+          && changeCurrency(exchangeRate, product.price) <= +queryTo));
+      }
+
+      return result.length === 0 ? (setErrorList(true), productsList) : (
+        setErrorList(false),
+        result
+      );
     }
 
-    return '';
-  }, [currency, queryFrom, queryTo, productsList]);
+    return productsList;
+  }, [currency, queryFrom, queryTo, productsList, errorList]);
 
   const products = useMemo(() => {
     switch (valueRadio) {
@@ -99,7 +131,7 @@ export const ProductsProvider = ({ children }) => {
       default:
         return filteredProducts;
     }
-  }, [valueRadio, filteredProducts, productsList]);
+  }, [valueRadio, filteredProducts, productsList, errorList]);
 
   const contextValue = {
     products,
@@ -121,6 +153,7 @@ export const ProductsProvider = ({ children }) => {
     applyQueryTo,
     valueRadio,
     setValueRadio,
+    errorList,
   };
 
   return (

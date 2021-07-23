@@ -10,7 +10,7 @@ import { ProductsProvider } from './ProductsProvider';
 
 export const App = () => (
   <ProductsProvider>
-    <div className="App" id="product">
+    <div className="App" id="products">
       <div className="App-Sidebar">
         <Options />
         <NewProduct />
