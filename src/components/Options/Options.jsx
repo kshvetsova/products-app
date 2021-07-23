@@ -124,7 +124,6 @@ export const Options = () => {
               по убыванию цены
             </p>
           </label>
-
           <label className="input-alphabet input-radio">
             <input
               type="radio"

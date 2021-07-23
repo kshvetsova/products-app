@@ -103,15 +103,16 @@
     flex-direction: column;
     justify-content: space-between;
     width: 300px;
-    height: 400px;
+    height: 410px;
 
     &-Name {
-      margin-top: $bigGap / 2;
+      margin-top: 10px;
     }
 
     &-Content {
       width: 100%;
       height: 50%;
+      padding-left: 0;
     }
   }
 

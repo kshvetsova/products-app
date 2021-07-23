@@ -19,29 +19,29 @@ export const NewProduct = () => {
     };
 
     if (!value) {
-      validErrors[item].push(`Enter a ${item[0].toUpperCase()
+      validErrors[item].push(`Enter the ${item[0].toUpperCase()
         + item.slice(1)} please!`);
     }
 
-    if ((value.length < 1 || value.length > 5) && item === 'price' && value) {
-      validErrors[item].push(`${item[0].toUpperCase()
-        + item.slice(1)} must contain from 1 to 5 characters!`);
+    if (value.length > 5 && item === 'price' && value) {
+      validErrors[item].push(`The ${item[0].toUpperCase()
+        + item.slice(1)} must contain to 6 characters!`);
     }
 
-    if (+value < 1 && item === 'price' && value) {
-      validErrors[item].push(`${item[0].toUpperCase()
-        + item.slice(1)} must be more than 1!`);
+    if (+value <= 100 && item === 'price' && value) {
+      validErrors[item].push(`The ${item[0].toUpperCase()
+        + item.slice(1)} must be more than 100!`);
     }
 
     if ((value.length < 5 || value.length > 40) && item === 'name' && value) {
-      validErrors[item].push(`${item[0].toUpperCase()
+      validErrors[item].push(`The ${item[0].toUpperCase()
         + item.slice(1)} must contain from 5 to 40 characters!`);
     }
 
     if ((value.length < 30 || value.length > 150)
       && item === 'description' && value) {
-      validErrors[item].push(`${item[0].toUpperCase()
-        + item.slice(1)} must contain from 20 to 150 characters!`);
+      validErrors[item].push(`The ${item[0].toUpperCase()
+        + item.slice(1)} must contain from 30 to 150 characters!`);
     }
 
     setErrors({
@@ -161,7 +161,6 @@ export const NewProduct = () => {
               />
             </div>
           </div>
-
           <div className="input-container">
             <span className="error">{errors.description}</span>
             <textarea
@@ -177,8 +176,6 @@ export const NewProduct = () => {
               onBlur={handleOnBlur}
             />
           </div>
-
-          {/* <div className="input-container"> */}
           <div className="Form-Item">
             <p className={classNames({
               input_valid: image,
