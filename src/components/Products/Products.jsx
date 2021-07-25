@@ -7,10 +7,11 @@ import './Products.scss';
 export const Products = () => {
   const {
     products,
-    currency,
+    value,
     exchangeRate,
-    errorList,
   } = useContext(ProductsContext);
+
+  const { currency, errorList } = value;
 
   return (
     <>

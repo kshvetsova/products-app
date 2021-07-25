@@ -5,17 +5,13 @@ import './Options.scss';
 
 export const Options = () => {
   const {
-    currency,
-    setCurrency,
-    valueInputFrom,
-    setValueInputFrom,
-    valueInputTo,
-    setValueInputTo,
+    value,
+    handleChange,
+    changeValue,
     applyQueryTo,
     applyQueryFrom,
-    valueRadio,
-    setValueRadio,
   } = useContext(ProductsContext);
+  const { currency, from, to, radio } = value;
 
   return (
     <div className="Options">
@@ -23,7 +19,7 @@ export const Options = () => {
         <h2 className="Options-TitlePrice">Цена</h2>
         <div className="Options-InputsPrice">
           <div className={classNames('input-from', {
-            input_active: valueInputFrom,
+            input_active: from,
           })}
           >
             от:
@@ -31,19 +27,19 @@ export const Options = () => {
             <input
               type="number"
               className="input-price"
-              name="от"
+              name="from"
               min="10"
               max="100"
               placeholder="10"
-              value={valueInputFrom}
+              value={from}
               onChange={(e) => {
-                setValueInputFrom(e.target.value);
+                handleChange(e);
                 applyQueryFrom(e.target.value);
               }}
             />
           </div>
           <div className={classNames('input-to', {
-            input_active: valueInputTo,
+            input_active: to,
           })}
           >
             до:
@@ -51,13 +47,13 @@ export const Options = () => {
             <input
               type="number"
               className="input-price"
-              name="до"
+              name="to"
               min="100"
               max="50000"
               placeholder="50000"
-              value={valueInputTo}
+              value={to}
               onChange={(e) => {
-                setValueInputTo(e.target.value);
+                handleChange(e);
                 applyQueryTo(e.target.value);
               }}
             />
@@ -73,7 +69,7 @@ export const Options = () => {
             className={classNames('button button-usd', {
               currency_active: currency === 'usd',
             })}
-            onClick={() => setCurrency('usd')}
+            onClick={() => changeValue('currency', 'usd')}
           >
             USD
           </button>
@@ -82,7 +78,7 @@ export const Options = () => {
             className={classNames('button button-uah', {
               currency_active: currency === 'uah',
             })}
-            onClick={() => setCurrency('uah')}
+            onClick={() => changeValue('currency', 'uah')}
           >
             UAH
           </button>
@@ -95,14 +91,14 @@ export const Options = () => {
           <label className="input-asc input-radio">
             <input
               type="radio"
-              name="asc"
+              name="radio"
               className="radio"
               value="asc"
-              checked={valueRadio === 'asc'}
-              onChange={e => setValueRadio(e.target.value)}
+              checked={radio === 'asc'}
+              onChange={handleChange}
             />
             <p className={classNames('option', {
-              option_active: valueRadio === 'asc',
+              option_active: radio === 'asc',
             })}
             >
               по возростанию цены
@@ -111,30 +107,31 @@ export const Options = () => {
           <label className="input-desc input-radio">
             <input
               type="radio"
-              name="desc"
+              name="radio"
               className="radio"
               value="desc"
-              checked={valueRadio === 'desc'}
-              onChange={e => setValueRadio(e.target.value)}
+              checked={radio === 'desc'}
+              onChange={handleChange}
             />
             <p className={classNames('option', {
-              option_active: valueRadio === 'desc',
+              option_active: radio === 'desc',
             })}
             >
               по убыванию цены
             </p>
           </label>
+
           <label className="input-alphabet input-radio">
             <input
               type="radio"
-              name="alphabet"
+              name="radio"
               className="radio"
               value="alphabet"
-              checked={valueRadio === 'alphabet'}
-              onChange={e => setValueRadio(e.target.value)}
+              checked={radio === 'alphabet'}
+              onChange={handleChange}
             />
             <p className={classNames('option', {
-              option_active: valueRadio === 'alphabet',
+              option_active: radio === 'alphabet',
             })}
             >
               по алфавиту

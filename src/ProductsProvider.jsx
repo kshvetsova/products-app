@@ -10,39 +10,51 @@ export const ProductsContext = React.createContext({
   setProductsList: () => {},
   exchangeRate: '',
   setExchangeRate: () => {},
-  currency: '',
-  setCurrency: () => {},
-  valueInputFrom: '',
-  setValueInputFrom: () => {},
-  valueInputTo: '',
-  setValueInputTo: () => {},
   queryFrom: '',
   setQueryFrom: () => {},
   applyQueryFrom: () => {},
   queryTo: '',
   setQueryTo: () => {},
   applyQueryTo: () => {},
-  valueRadio: '',
-  setValueRadio: () => {},
-  errorList: '',
-  setErrorList: () => {},
+  value: {},
+  handleChange: () => {},
+  changeValue: () => {},
 });
+
+const initialValue = {
+  currency: 'uah',
+  from: '',
+  to: '',
+  radio: '',
+  errorList: false,
+};
 
 export const ProductsProvider = ({ children }) => {
   const [productsList, setProductsList] = useState(
     JSON.parse(localStorage.getItem('products'))
     || productsFromServer,
   );
-  const [exchangeRate, setExchangeRate] = useState();
-  const [currency, setCurrency] = useState('uah');
-  const [valueInputFrom, setValueInputFrom] = useState('');
+  const [exchangeRate, setExchangeRate] = useState('');
   const [queryFrom, setQueryFrom] = useState('');
   const applyQueryFrom = useCallback(debounce(setQueryFrom, 1000), []);
-  const [valueInputTo, setValueInputTo] = useState('');
   const [queryTo, setQueryTo] = useState('');
   const applyQueryTo = useCallback(debounce(setQueryTo, 1000), []);
-  const [valueRadio, setValueRadio] = useState();
-  const [errorList, setErrorList] = useState(false);
+  const [value, setValue] = useState(initialValue);
+  const { currency, radio, errorList } = value;
+  const handleChange = useCallback((e) => {
+    const { name, value: query } = e.target;
+
+    setValue({
+      ...value,
+      [name]: query,
+    });
+  }, [value]);
+
+  const changeValue = useCallback((item, val) => (
+    setValue({
+      ...value,
+      [item]: val,
+    })), [value]);
 
   useEffect(() => {
     getExchangeRate().then(setExchangeRate);
@@ -50,7 +62,7 @@ export const ProductsProvider = ({ children }) => {
 
   const filteredProducts = useMemo(() => {
     if (!queryFrom && !queryTo) {
-      setErrorList(false);
+      changeValue('errorList', false);
 
       return productsList;
     }
@@ -68,10 +80,9 @@ export const ProductsProvider = ({ children }) => {
           changeCurrency(exchangeRate, product.price) >= +queryFrom));
       }
 
-      return result.length === 0 ? (setErrorList(true), productsList) : (
-        setErrorList(false),
-        result
-      );
+      return result.length === 0
+        ? (changeValue('errorList', true), productsList)
+        : (changeValue('errorList', false), result);
     }
 
     if (queryTo && !queryFrom) {
@@ -87,10 +98,9 @@ export const ProductsProvider = ({ children }) => {
           changeCurrency(exchangeRate, product.price) <= +queryTo));
       }
 
-      return result.length === 0 ? (setErrorList(true), productsList) : (
-        setErrorList(false),
-        result
-      );
+      return result.length === 0
+        ? (changeValue('errorList', true), productsList)
+        : (changeValue('errorList', false), result);
     }
 
     if (queryFrom && queryTo) {
@@ -107,17 +117,16 @@ export const ProductsProvider = ({ children }) => {
           && changeCurrency(exchangeRate, product.price) <= +queryTo));
       }
 
-      return result.length === 0 ? (setErrorList(true), productsList) : (
-        setErrorList(false),
-        result
-      );
+      return result.length === 0
+        ? (changeValue('errorList', true), productsList)
+        : (changeValue('errorList', false), result);
     }
 
     return productsList;
-  }, [currency, queryFrom, queryTo, productsList, errorList]);
+  }, [currency, errorList, queryFrom, queryTo, productsList]);
 
   const products = useMemo(() => {
-    switch (valueRadio) {
+    switch (radio) {
       case 'asc':
         return [...filteredProducts]
           .sort((a, b) => (+a.price) - (+b.price));
@@ -131,7 +140,7 @@ export const ProductsProvider = ({ children }) => {
       default:
         return filteredProducts;
     }
-  }, [valueRadio, filteredProducts, productsList, errorList]);
+  }, [radio, filteredProducts, productsList, errorList]);
 
   const contextValue = {
     products,
@@ -139,21 +148,15 @@ export const ProductsProvider = ({ children }) => {
     setProductsList,
     exchangeRate,
     setExchangeRate,
-    currency,
-    setCurrency,
-    valueInputFrom,
-    setValueInputFrom,
-    valueInputTo,
-    setValueInputTo,
     queryFrom,
     setQueryFrom,
     applyQueryFrom,
     queryTo,
     setQueryTo,
     applyQueryTo,
-    valueRadio,
-    setValueRadio,
-    errorList,
+    value,
+    handleChange,
+    changeValue,
   };
 
   return (
