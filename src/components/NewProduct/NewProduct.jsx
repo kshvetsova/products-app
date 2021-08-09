@@ -161,7 +161,6 @@ export const NewProduct = () => {
               />
             </div>
           </div>
-
           <div className="input-container">
             <span className="error">{errors.description}</span>
             <textarea
@@ -177,7 +176,6 @@ export const NewProduct = () => {
               onBlur={handleOnBlur}
             />
           </div>
-
           <div className="Form-Item">
             <p className={classNames({
               input_valid: image,

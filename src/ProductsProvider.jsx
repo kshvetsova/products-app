@@ -36,6 +36,7 @@ export const ProductsProvider = ({ children }) => {
   const applyQueryTo = useCallback(debounce(setQueryTo, 1000), []);
   const [value, setValue] = useState(initialValue);
   const { currency, radio, errorList } = value;
+
   const handleChange = useCallback((e) => {
     const { name, value: query } = e.target;
 
@@ -118,7 +119,7 @@ export const ProductsProvider = ({ children }) => {
     }
 
     return productsList;
-  }, [currency, errorList, queryFrom, queryTo, productsList]);
+  }, [currency, errorList, queryFrom, queryTo, productsList, exchangeRate]);
 
   const products = useMemo(() => {
     switch (radio) {
@@ -137,17 +138,20 @@ export const ProductsProvider = ({ children }) => {
     }
   }, [radio, filteredProducts, productsList, errorList]);
 
-  const contextValue = {
-    products,
-    productsList,
-    setProductsList,
-    exchangeRate,
-    applyQueryFrom,
-    applyQueryTo,
-    value,
-    handleChange,
-    changeValue,
-  };
+  const contextValue = useMemo(() => (
+    {
+      products,
+      productsList,
+      setProductsList,
+      exchangeRate,
+      applyQueryFrom,
+      applyQueryTo,
+      value,
+      handleChange,
+      changeValue,
+    }
+  ), [products, productsList, exchangeRate,
+    applyQueryFrom, applyQueryTo, value]);
 
   return (
     <ProductsContext.Provider value={contextValue}>
